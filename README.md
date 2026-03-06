@@ -4,13 +4,13 @@ A React project built with Vite that helps you stay productive and focused.
 
 ## Features
 
-- ✅ Dark mode  
-- ✅ LocalStorage persistence (your data is saved even if you refresh or close the browser)  
-- ✅ Digital clock display  
-- ✅ Quote API integration (inspirational quotes on demand)  
-- ✅ Focus mode to block distractions  
-- ✅ Built-in music player for background tunes  
-- ✅ Stopwatch per task to track your time effectively  
+-  Dark mode  
+-  LocalStorage persistence (your data is saved even if you refresh or close the browser)  
+-  Digital clock display  
+-  Quote API integration (inspirational quotes on demand)  
+-  Focus mode to block distractions  
+-  Built-in music player for background tunes  
+-  Stopwatch per task to track your time effectively  
 
 ## Tech Stack
 
