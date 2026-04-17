@@ -1,88 +1,16 @@
-# Focus To-Do List
+# React + Vite
 
-A productivity-focused React app built with Vite that helps users manage tasks and stay in the zone.
+This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
 
-This project combines a clean to-do list with focus tools like a digital clock, motivational quotes, background music, dark mode, and a per-task stopwatch. It is designed to feel simple to use while still offering a more immersive productivity experience than a basic task app.
+Currently, two official plugins are available:
 
-## Features
+- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
+- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
 
-- Add and manage daily tasks
-- Mark tasks as completed
-- Delete completed tasks
-- Save tasks in `localStorage` so they persist after refresh
-- Toggle dark mode
-- View a live digital clock and current date
-- Fetch inspirational quotes
-- Open focus mode for each task
-- Play background music while focusing
-- Track time for each task with a built-in stopwatch
+## React Compiler
 
-## Tech Stack
+The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
 
-- React
-- JavaScript
-- Vite
-- CSS
+## Expanding the ESLint configuration
 
-## How It Works
-
-- Tasks are stored in the browser using `localStorage`
-- Each task has its own focus panel
-- Focus mode includes music controls and a stopwatch
-- Quote requests use a Vite development proxy to avoid CORS issues during local development
-
-## Getting Started
-
-### 1. Clone the repository
-
-```bash
-git clone <your-repository-url>
-cd To-Do
-```
-
-### 2. Install dependencies
-
-```bash
-npm install
-```
-
-### 3. Start the development server
-
-```bash
-npm run dev
-```
-
-Then open:
-
-```text
-http://localhost:5173
-```
-
-## Build for Production
-
-```bash
-npm run build
-```
-
-To preview the production build locally:
-
-```bash
-npm run preview
-```
-
-## Project Structure
-
-```text
-src/
-  App.jsx
-  ToDo.jsx
-  DigitalClock.jsx
-  StopWatch.jsx
-  index.css
-```
-
-## Notes
-
-- The quote API is accessed through the Vite dev server proxy in `vite.config.js`
-- Music files are stored in the `public/music` folder
-- Task data is stored only in the browser and is not synced to a backend
+If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
