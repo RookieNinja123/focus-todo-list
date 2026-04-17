@@ -15,9 +15,9 @@ function DigitalClock(){
         }
     }, [])
 
-    // quote new show garna api fetch gareko 
+   // quote new show garna api fetch gareko 
    useEffect(() => {
-        fetch("https://zenquotes.io/api/random")
+        fetch("/api/api/random")
         .then(res => res.json())
         .then(data => setQuote(data[0].q))
         .catch(() => setQuote("Pani Piyo ta aaja ?"));
@@ -45,7 +45,10 @@ function DigitalClock(){
       return (
         <div className = "clock-card">
             <div className="clock-top">
-                <span className='quote'>"{quote}"</span>
+                <div className="quote-block">
+                    <span className='quote-label'>Daily Quote</span>
+                    <span className='quote'>"{quote}"</span>
+                </div>
                 <span className='date'>{time.toDateString()}</span>
             </div>
             <div className="time">

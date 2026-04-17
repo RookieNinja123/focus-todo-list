@@ -10,13 +10,13 @@ function ToDo({ darkMode, setDarkMode }) {
 
   const [newTask, setNewTasks] = useState("");
 
-   const musics = [
-  {name: "Lo-fi",file:"./music/massobeats.mp3"},
-  {name: "Rain",file:"./music/Bon Iver - Beach Baby .mp3"},
-  {name: "Piano",file:"./music/Describe what she was like.mp3"},
-]
+  const musics = [
+    { name: "Lo-fi", file: "./music/massobeats.mp3" },
+    { name: "Rain", file: "./music/Bon Iver - Beach Baby .mp3" },
+    { name: "Piano", file: "./music/Describe what she was like.mp3" },
+  ];
 
-  const [ currentMusic , setCurrentMusic] = useState(musics[0].file);
+  const [currentMusic, setCurrentMusic] = useState(musics[0].file);
 
   // const [selectedTask, setSelectedTask] = useState(null);
 
@@ -28,7 +28,7 @@ function ToDo({ darkMode, setDarkMode }) {
 
   useEffect(() => {
     localStorage.setItem("tasks", JSON.stringify(tasks));
-  },[tasks]);
+  }, [tasks]);
 
 
   function handleInputChange(event) {
@@ -71,88 +71,144 @@ function ToDo({ darkMode, setDarkMode }) {
     setTasks(updatedTasks);
   }
 
-  function updatedTaskTime(index,time) {
-    setTasks(tasks.map((task,i) =>
-      i === index ? {...task, time:time} : task
-    ));
+  function updatedTaskTime(index, time) {
+    setTasks(
+      tasks.map((task, i) => (i === index ? { ...task, time } : task)),
+    );
   }
+
+  const completedTasks = tasks.filter((task) => task.completed).length;
 
 
   return (
     <div className={`todo-card ${darkMode ? "dark" : ""}`}>
-      <div
-        className="todo-header"
-        style={{
-          display: "flex",
-          justifyContent: "space-between",
-          alignItems: "center",
-        }}
-      >
-        <h1>Todo List</h1>
+      <div className="hero-panel">
+        <div className="todo-header">
+          <div className="title-group">
+            <p className="eyebrow">Focus To-Do List</p>
+            <h1>Stay calm. Finish what matters.</h1>
+          </div>
 
-        <button onClick={() => setDarkMode(!darkMode)}>
-          {" "}
-          {darkMode ? "Light" : "Dark"}{" "}
-        </button>
+          <button
+            className="theme-toggle"
+            onClick={() => setDarkMode(!darkMode)}
+          >
+            {darkMode ? "Light Mode" : "Dark Mode"}
+          </button>
+        </div>
+
+        <DigitalClock />
+
+        <div className="stats-row">
+          <div className="stat-chip">
+            <span className="stat-label">Total Tasks</span>
+            <strong>{tasks.length}</strong>
+          </div>
+          <div className="stat-chip">
+            <span className="stat-label">Completed</span>
+            <strong>{completedTasks}</strong>
+          </div>
+        </div>
       </div>
-      <DigitalClock />
-      <p className="task-num">Total Tasks: {tasks.length}</p>
-      <div className="todo-input">
-        <input
-          type="text"
-          ref={inputRef}
-          value={newTask}
-          onKeyDown={handleKeyDown}
-          onChange={handleInputChange}
-          placeholder="Enter the task ........."
-        />
 
-        <button onClick={addTask}>Add</button>
+      <div className="composer-card">
+        <div className="section-heading">
+          <div>
+            <p className="section-label">Tasks</p>
+            <h2>Plan your next move</h2>
+          </div>
+        </div>
+
+        <div className="todo-input">
+          <input
+            type="text"
+            ref={inputRef}
+            value={newTask}
+            onKeyDown={handleKeyDown}
+            onChange={handleInputChange}
+            placeholder="What needs your attention today?"
+          />
+
+          <button className="primary-button" onClick={addTask}>
+            Add Task
+          </button>
+        </div>
       </div>
 
       <div className="task-list">
-        {tasks.map((task, index) => (
-           <div key={task.id}>
-          <li className="task">
-            <input
-              type="checkbox"
-              checked={task.completed}
-              onChange={() => toggleTaskCompletion(index)} />
-            <span
-              // react inline style
-              style={{
-                textDecoration: task.completed ? "line-through" : "none",
-                marginLeft: "8px",
-                cursor: "pointer",
-              }}
-              onClick={() => toggleFocusMode(index)}>
-              {task.text}
-            </span>
+        {tasks.length === 0 ? (
+          <div className="empty-state">
+            <p>No tasks yet. Add one and click its title to open focus mode.</p>
+          </div>
+        ) : (
+          tasks.map((task, index) => (
+            <div
+              key={task.id}
+              className={`task-card ${task.completed ? "is-complete" : ""} ${task.focus ? "is-focused" : ""}`}
+            >
+              <li className="task">
+                <label className="checkbox-wrap">
+                  <input
+                    type="checkbox"
+                    checked={task.completed}
+                    onChange={() => toggleTaskCompletion(index)}
+                  />
+                  <span className="checkbox-custom"></span>
+                </label>
+
+                <button
+                  type="button"
+                  className="task-text-button"
+                  onClick={() => toggleFocusMode(index)}
+                >
+                  <span className="task-text">{task.text}</span>
+                  <span className="task-hint">
+                    {task.focus ? "Hide focus mode" : "Open focus mode"}
+                  </span>
+                </button>
               </li>
-              <div className="focus-mode-card" style={{display: task.focus ? "block" : "none"}}>
-                <h3>Focus Mode :"{task.text}"</h3>
+
+              <div
+                className="focus-mode-card"
+                style={{ display: task.focus ? "grid" : "none" }}
+              >
+                <div className="focus-mode-copy">
+                  <p className="section-label">Focus Mode</p>
+                  <h3>{task.text}</h3>
+                  <p className="focus-description">
+                    Set the mood, start the timer, and work on one thing at a
+                    time.
+                  </p>
+                </div>
+
                 <div className="audio-player">
-                  <span>Music</span>
+                  <span>Background Music</span>
                   <select onChange={(e) => setCurrentMusic(e.target.value)}>
-                    {musics.map((m,i) =>
-                      (<option key={i} value={m.file}>{m.name}</option>
-                         ))}
-                      </select>
-                  <audio controls src= {currentMusic}>
+                    {musics.map((music, i) => (
+                      <option key={i} value={music.file}>
+                        {music.name}
+                      </option>
+                    ))}
+                  </select>
+                  <audio controls src={currentMusic}>
                     Music Bajena Jasto xa!
                   </audio>
                 </div>
+
                 <Stopwatch
-                  savedTime = {task.time}
-                  updateTime = {(t) => updatedTaskTime(index,t)}
+                  savedTime={task.time}
+                  updateTime={(time) => updatedTaskTime(index, time)}
                 />
               </div>
-           
             </div>
-        ))}
+          ))
+        )}
       </div>
+
       {tasks.some((task) => task.completed) && (
-        <button onClick={deleteSelectedTasks}>Delete</button>
+        <button className="danger-button" onClick={deleteSelectedTasks}>
+          Delete Completed
+        </button>
       )}
     </div>
   );
